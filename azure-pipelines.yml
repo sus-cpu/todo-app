@@ -28,5 +28,5 @@ steps:
       runOptions: 'commands'
       commands: |
         cd /home/azureuser/todo-app
-        docker compose --build -d
+        docker compose up --build -d
         docker compose up -d
