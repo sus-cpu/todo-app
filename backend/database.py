@@ -1,0 +1,17 @@
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+
+DATABASE_URL = "postgresql://todo_user:todo_pass@localhost:5432/todo_db"
+
+engine = create_engine(DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+
+# Gives each request its own DB session, then closes it afterwards
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()
