@@ -1,8 +1,3 @@
-# Starter pipeline
-# Start with a minimal pipeline that you can customize to build and deploy your code.
-# Add steps that build, run tests, deploy, and more:
-# https://aka.ms/yaml
-
 trigger:
   - main
 
@@ -33,5 +28,5 @@ steps:
       runOptions: 'commands'
       commands: |
         cd /home/azureuser/todo-app
-        docker compose down
-        docker compose up -d --build
+        docker compose -f /home/azureuser/todo-app/docker-compose.yml down
+        docker compose -f /home/azureuser/todo-app/docker-compose.yml up -d --build
