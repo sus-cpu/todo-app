@@ -25,6 +25,8 @@ steps:
     displayName: 'Rebuild and restart containers'
     inputs:
       sshEndpoint: 'todo-vm-ssh'
-      runOptions: 'commands'
-      commands: |
-        cd /home/azureuser/todo-app && docker compose -f ./docker-compose.yml up --build -d
+      runOptions: 'inline'
+      inline: |
+        cd /home/azureuser/todo-app
+        docker compose up --build -d --remove-orphans
+      failOnStdErr: false
