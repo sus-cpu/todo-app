@@ -13,7 +13,7 @@ app = FastAPI(title="To-Do API")
 # Lets the React dev server (different port) call this API
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://20.2.232.29:5173"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
