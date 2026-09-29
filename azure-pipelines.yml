@@ -4,16 +4,34 @@
 # https://aka.ms/yaml
 
 trigger:
-- main
+  - main
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: 'ubuntu-latest'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+  - task: CopyFilesOverSSH@0
+    displayName: 'Copy project files to VM'
+    inputs:
+      sshEndpoint: 'todo-vm-ssh'
+      sourceFolder: '$(Build.SourcesDirectory)'
+      contents: |
+        **
+        !.git/**
+        !**/.git/**
+        !**/node_modules/**
+        !**/venv/**
+        !.env
+        !backend/.env
+      targetFolder: '/home/azureuser/todo-app'
+      overwriteExisting: true
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+  - task: SSH@0
+    displayName: 'Rebuild and restart containers'
+    inputs:
+      sshEndpoint: 'todo-vm-ssh'
+      runOptions: 'commands'
+      commands: |
+        cd /home/azureuser/todo-app
+        docker compose down
+        docker compose up -d --build
