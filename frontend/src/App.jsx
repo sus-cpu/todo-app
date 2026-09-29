@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./App.css";
 
-const api = axios.create({ baseURL: "http://20.2.232.29:8001" });
+const api = axios.create({ baseURL: "/api" });
 
 export default function App() {
   const [tasks, setTasks] = useState([]);
