@@ -27,5 +27,4 @@ steps:
       sshEndpoint: 'todo-vm-ssh'
       runOptions: 'commands'
       commands: |
-        cd /home/azureuser/todo-app
-        docker compose up --build -d
+        cd /home/azureuser/todo-app && docker compose -f ./docker-compose.yml up --build -d
